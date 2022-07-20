@@ -26,6 +26,7 @@ app.engine("hbs", exphbs.engine({
 app.set('view engine', 'hbs')
 
 // Middlewares
+app.use(express.json())
 app.use(session({
     secret: process.env.KEY_EXP_SESSIONS,
     resave: false,
@@ -37,6 +38,7 @@ app.use(passport.session())
 // Routes
 app.use(require('./routes/index.routes'))
 app.use(require('./routes/auth.routes'))
+app.use(require('./routes/items.routes'))
 
 // Static files
 app.use('/public', express.static('src/public'));
