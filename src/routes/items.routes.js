@@ -4,7 +4,7 @@ const {
     getItems
 } = require('../controllers/items.controllers')
 
-router.get('/getItems', getItems)
+router.get('/', getItems)
 
 router.post('/createItem', createItem)
 
