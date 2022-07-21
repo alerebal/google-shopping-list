@@ -17,10 +17,7 @@ itemsCtrl.createItem = async (req, res) => {
 itemsCtrl.getItems = async (req, res) => {
     try {
         const items = await Item.find().sort({name: 1})
-        console.log(items)
         res.status(200).render('partials/items-list', {items})
-        // res.render('partials/items-list', {items})
-
     } catch (error) {
         res.status(404).json({msg: 'Items not found'})
     }

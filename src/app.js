@@ -43,6 +43,7 @@ app.use(passport.session())
 // app.use(require('./routes/index.routes'))
 app.use(require('./routes/auth.routes'))
 app.use(require('./routes/items.routes'))
+app.use(require('./routes/shoppingList.routes'))
 
 // Static files
 app.use('/public', express.static('src/public'));
