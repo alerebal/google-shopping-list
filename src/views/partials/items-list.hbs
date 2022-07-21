@@ -1,10 +1,11 @@
 <h1>Lists of Items</h1>
 <ul>
 {{#each items}}
-    <li>{{name}} - {{description}} - {{price}} € {{id}}
+    <li>{{name}} - {{description}} - {{price}} €
         <button onclick="addToCart('{{id}}')">Add to cart</button>
     </li>
 {{/each}}
 </ul>
 
 <a href="/auth/google">Authorize with Google</a>
+<a href="/cartList">Go to my cart</a>

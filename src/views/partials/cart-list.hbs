@@ -1,0 +1,12 @@
+<h1>My Cart</h1>
+{{#if shoppingList}}
+    <ul>
+        {{#each shoppingList}}
+            <li>{{name}} - {{description}} - {{price}} €
+                <button onclick="removeFromCart('{{id}}')">Delete</button>
+            </li>
+        {{/each}}
+    </ul>
+{{else}}
+    <p>Your cart is empty.</p>
+{{/if}}
