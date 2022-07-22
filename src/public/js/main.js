@@ -1,8 +1,17 @@
 function addToCart(id) {
-    console.log(id)
     $.ajax({
         type: "POST",
         url: `/addToCart/${id}`,
-        data: "data"
-    }).done(data => console.log(data));
+    }).done(data => alert('The item has been added to the cart'));
+}
+
+function removeFromCart(id) {
+    confirm('Are you sure?') ? $.ajax({
+        type: "POST",
+        url: `/removeFromCart/${id}`
+    }).done(data => {
+        alert('The item has been removed from the cart')
+        window.location.assign('/cartList')
+    }):
+    window.location.assign('/cartList')
 }
