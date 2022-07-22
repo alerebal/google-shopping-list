@@ -41,7 +41,6 @@ slCtrl.removeItemFromCart = async(req, res) => {
             const user = await User.findById(userId)
             const index = user.shoppingList.indexOf(id)
             const newList = removeItemOnce(user.shoppingList, index)
-            console.log(newList)
             user.shoppingList = newList
             await user.save()
             res.status(200).json(user.shoppingList)
@@ -51,6 +50,23 @@ slCtrl.removeItemFromCart = async(req, res) => {
     } catch (error) {
         console.error(error)
     }    
+}
+
+// Remove all the items
+slCtrl.removeAllItems = async(req, res) => {
+    try {
+        if (req.user) {
+            const {id} = req.user
+            const user = await User.findById(id)
+            user.shoppingList = []
+            await user.save()
+            res.status(200).json(user.shoppingList)
+        } else {
+            res.json('not user inside try')
+        }
+    } catch (error) {
+        console.error(error)
+    }
 }
 
 async function fillCartList(itemsIdList) {

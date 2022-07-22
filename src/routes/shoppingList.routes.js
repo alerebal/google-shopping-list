@@ -2,13 +2,15 @@ const router = require('express').Router()
 const {
     addItemToCart,
     displayCart,
-    removeItemFromCart
+    removeItemFromCart,
+    removeAllItems
 } = require('../controllers/shoppingList.controllers')
 
 router.get('/cartList', displayCart)
 
 router.post('/addToCart/:id', addItemToCart)
 
-router.post('/removeFromCart/:id', removeItemFromCart)
+router.delete('/removeFromCart/:id', removeItemFromCart)
+router.delete('/removeAllItems', removeAllItems)
 
 module.exports = router
