@@ -1,6 +1,8 @@
 const slCtrl = {}
 const User = require('../models/User')
 const Item = require('../models/Item')
+const noUserCart = []
+let noUser;
 
 // Display cart on the screen
 slCtrl.displayCart = async(req, res) => {
@@ -10,25 +12,45 @@ slCtrl.displayCart = async(req, res) => {
         const shoppingList = await fillCartList(user.shoppingList)
         res.status(200).render('partials/cart-list', {shoppingList})
     } else {
-        res.json('no user display cart')
+        // res.json('not user')
+        console.log(noUser)
+        console.log('no user display')
+        res.status(200).render('partials/cart-list', {noUser})
     }
+}
+
+// Display cart no user
+// slCtrl.displayCartNoUser = async(req, res) => {
+//     const body = req.body
+//     const cartAsObject = body['cart[]']
+//     for (let n in cartAsObject) {
+//         noUserCart.push(cartAsObject[n])
+//     }
+//     const shoppingListNoUser = await fillCartList(noUserCart)
+//     noUser = shoppingListNoUser
+//     res.json(shoppingListNoUser)
+// }
+
+slCtrl.displayCartNoUser = async(req, res) => {
+    res.json('no user display')
 }
 
 // Add an item to the Shopping list
 slCtrl.addItemToCart = async(req, res) => {
-    if (req.user) {
-        try {
+    try {
+        // If user is login with Google
+        if (req.user) {
             const {id} = req.params
             const userId = req.user.id
             const user = await User.findById(userId)
             user.shoppingList.push(id)
             user.save()
             res.status(200).json(id)
-        } catch (error) {
-            res.status(404).json({msg: 'The item has not been added to the cart'})
+        } else {
+            res.json('not user')
         }
-    } else {
-        res.json('no user')
+    } catch (error) {
+        console.error(error)
     }
 }
 
