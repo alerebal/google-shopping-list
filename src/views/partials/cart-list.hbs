@@ -8,6 +8,15 @@
         {{/each}}
     </ul>
     <button onclick="removeAllItems()">Remove all the items</button>
+{{else if noUser}}
+    <ul>
+        {{#each noUser}}
+            <li>{{name}} - {{description}} - {{price}} €
+                <button onclick="removeFromCart('{{id}}')">Delete</button>
+            </li>
+        {{/each}}
+    </ul>
+    <button onclick="removeAllItems()">Remove all the items</button>
 {{else}}
     <p>Your cart is empty.</p>
 {{/if}}

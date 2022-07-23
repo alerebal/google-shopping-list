@@ -1,7 +1,7 @@
 const slCtrl = {}
 const User = require('../models/User')
 const Item = require('../models/Item')
-const noUserCart = []
+let noUserCart = []
 let noUser;
 
 // Display cart on the screen
@@ -12,26 +12,19 @@ slCtrl.displayCart = async(req, res) => {
         const shoppingList = await fillCartList(user.shoppingList)
         res.status(200).render('partials/cart-list', {shoppingList})
     } else {
-        // res.json('not user')
-        console.log(noUser)
-        console.log('no user display')
+        noUser = await fillCartList(noUserCart)
         res.status(200).render('partials/cart-list', {noUser})
     }
 }
 
 // Display cart no user
-// slCtrl.displayCartNoUser = async(req, res) => {
-//     const body = req.body
-//     const cartAsObject = body['cart[]']
-//     for (let n in cartAsObject) {
-//         noUserCart.push(cartAsObject[n])
-//     }
-//     const shoppingListNoUser = await fillCartList(noUserCart)
-//     noUser = shoppingListNoUser
-//     res.json(shoppingListNoUser)
-// }
-
 slCtrl.displayCartNoUser = async(req, res) => {
+    const cart = req.body
+    // Need to check if there is cart in localstorage, otherwise throws an error
+    if (cart['cart'] != 'undefined') {
+        const noUserArr = JSON.parse(cart['cart'])
+        noUserCart = noUserArr
+    }
     res.json('no user display')
 }
 
@@ -67,7 +60,10 @@ slCtrl.removeItemFromCart = async(req, res) => {
             await user.save()
             res.status(200).json(user.shoppingList)
         } else {
-            res.json('not user inside try')
+            const {id} = req.params
+            const index = noUserCart.indexOf(id)
+            noUserCart = removeItemOnce(noUserCart, index)
+            res.status(200).json({noUserCart, user: 'not user'})
         }
     } catch (error) {
         console.error(error)

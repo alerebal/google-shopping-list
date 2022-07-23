@@ -2,29 +2,25 @@ let localCart = JSON.parse(localStorage.getItem('cart'))
 let noUserCart = []
 
 function addToCart(id) {
-    // console.log(typeof(noUserCart))
+    // If user is authenticated
     $.ajax({
         method: "POST",
         url: `/addToCart/${id}`,
     }).done(data => {
+        // if user is not authenticated, add the item id to the local cart in localstorage
         if (data == "not user") {
-            // noUserCart.push(id)
             if (localCart) {
-                let cartLocal = JSON.parse(localStorage.getItem('cart'))
+                cartLocal = JSON.parse(localStorage.getItem('cart'))
                 noUserCart.push(id)
                 localStorage.setItem('cart', JSON.stringify(noUserCart))
-                console.log(cartLocal, 'cart local')
-                // console.log(typeof(cartLocal))
             } else {
                 noUserCart.push(id)
                 localStorage.setItem('cart', JSON.stringify(noUserCart))
             }
         }
-        
         // alert('The item has been added to the cart')
     });
     localCart = JSON.parse(localStorage.getItem('cart'))
-    console.log(localCart, 'saliden')
 }
 
 function removeFromCart(id) {
@@ -32,6 +28,10 @@ function removeFromCart(id) {
         method: "DELETE",
         url: `/removeFromCart/${id}`
     }).done(data => {
+        // remover el item from localstorage if user is not authorized
+        if (data.user == 'not user') {
+            localStorage.setItem('cart', JSON.stringify(data.noUserCart))
+        }
         window.location.assign('/cartList')
         alert('The item has been removed from the cart')
     }) :
@@ -50,17 +50,13 @@ function removeAllItems() {
 }
 
 function goToCart() {
-    // console.log(typeof(noUserCart), 'main')
+    let localCart = localStorage.getItem('cart')
     $.ajax({
         url: "/cartListNoUser",
         method: "POST",
-        data: {cart: noUserCart}
+        data: {cart: localCart}
     }).done(data => {
         console.log(data)
-        // $.ajax({
-        //     url: '/cartList',
-        //     method: 'GET'
-        // }).done(data => console.log(data))
     })
-    // window.location.assign('/cartList')
+    window.location.assign('/cartList')
 }
