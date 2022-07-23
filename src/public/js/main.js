@@ -43,6 +43,10 @@ function removeAllItems() {
         method: "DELETE",
         url: `/removeAllItems`
     }).done(data => {
+        // assign an empty array to cart in localstorage
+        if (data == 'not user') {
+            localStorage.setItem('cart', '[]')
+        }
         window.location.assign('/cartList')
         alert('The item has been removed from the cart')
     }) :

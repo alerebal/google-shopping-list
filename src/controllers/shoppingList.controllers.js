@@ -80,7 +80,8 @@ slCtrl.removeAllItems = async(req, res) => {
             await user.save()
             res.status(200).json(user.shoppingList)
         } else {
-            res.json('not user inside try')
+            noUserCart = []
+            res.json('not user')
         }
     } catch (error) {
         console.error(error)
