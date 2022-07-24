@@ -3,12 +3,12 @@ let noUserCart = []
 
 // add an item to the cart
 function addToCart(id) {
-    // If user is authenticated
+    // If user is logged in
     $.ajax({
         method: "POST",
         url: `/addToCart/${id}`,
     }).done(data => {
-        // if user is not authenticated, add the item id to the local cart in localstorage
+        // if user is not logged in, add the item id to the local cart in localstorage
         if (data == "not user") {
             if (localCart) {
                 cartLocal = JSON.parse(localStorage.getItem('cart'))
@@ -30,7 +30,7 @@ function removeFromCart(id) {
         method: "DELETE",
         url: `/removeFromCart/${id}`
     }).done(data => {
-        // remover el item from localstorage if user is not authorized
+        // remover el item from localstorage if user is not logged in
         if (data.user == 'not user') {
             localStorage.setItem('cart', JSON.stringify(data.noUserCart))
         }

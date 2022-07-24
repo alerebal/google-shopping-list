@@ -16,6 +16,7 @@ itemsCtrl.createItem = async (req, res) => {
 // Get all the items
 itemsCtrl.getItems = async (req, res) => {
     try {
+        // get user and send to the template to manage the navbar's links
         let user;
         if (req.user) {
             user = req.user
@@ -25,7 +26,7 @@ itemsCtrl.getItems = async (req, res) => {
         const items = await Item.find().sort({name: 1})
         res.status(200).render('partials/items-list', {items, user})
     } catch (error) {
-        res.status(404).json({msg: 'Items not found'})
+        res.status(404).render('partials/error')
     }
 }
 

@@ -1,6 +1,6 @@
 const slCtrl = {}
 const User = require('../models/User')
-const Item = require('../models/Item')
+const {fillCartList, removeItemOnce} = require('../helpers/helpers')
 let noUserCart = []
 let noUser;
 
@@ -10,6 +10,7 @@ slCtrl.displayCart = async(req, res) => {
         const {id} = req.user
         const user = await User.findById(id)
         const shoppingList = await fillCartList(user.shoppingList)
+        // send user to the template to manage the navbar's links
         res.status(200).render('partials/cart-list', {shoppingList, user})
     } else {
         noUser = await fillCartList(noUserCart)
@@ -21,6 +22,7 @@ slCtrl.displayCart = async(req, res) => {
 slCtrl.displayCartNoUser = async(req, res) => {
     const cart = req.body
     // Need to check if there is cart in localstorage, otherwise throws an error
+    // After I had assign an empty array to cart in localstorage, I had no more this problem, I will keep this if just in case, but I think is no longer necesary.
     if (cart['cart'] != 'undefined') {
         const noUserArr = JSON.parse(cart['cart'])
         noUserCart = noUserArr
@@ -31,7 +33,6 @@ slCtrl.displayCartNoUser = async(req, res) => {
 // Add an item to the Shopping list
 slCtrl.addItemToCart = async(req, res) => {
     try {
-        // If user is login with Google
         if (req.user) {
             const {id} = req.params
             const userId = req.user.id
@@ -43,7 +44,7 @@ slCtrl.addItemToCart = async(req, res) => {
             res.json('not user')
         }
     } catch (error) {
-        console.error(error)
+        res.status(404).render('partials/error')
     }
 }
 
@@ -66,7 +67,7 @@ slCtrl.removeItemFromCart = async(req, res) => {
             res.status(200).json({noUserCart, user: 'not user'})
         }
     } catch (error) {
-        console.error(error)
+        res.status(404).render('partials/error')
     }    
 }
 
@@ -84,24 +85,9 @@ slCtrl.removeAllItems = async(req, res) => {
             res.json('not user')
         }
     } catch (error) {
-        console.error(error)
+        res.status(404).render('partials/error')
     }
 }
 
-async function fillCartList(itemsIdList) {
-    const shoppingList = []
-    for (let itemId of itemsIdList) {
-        const item = await Item.findById(itemId)
-        shoppingList.push(item)
-    }
-    return shoppingList
-}
-
-function removeItemOnce(arr, index) {
-    if (index > -1) {
-      arr.splice(index, 1);
-    }
-    return arr;
-}
 
 module.exports = slCtrl

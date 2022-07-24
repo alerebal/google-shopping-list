@@ -41,7 +41,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // Routes
-// app.use(require('./routes/index.routes'))
 app.use(require('./routes/auth.routes'))
 app.use(require('./routes/items.routes'))
 app.use(require('./routes/shoppingList.routes'))
