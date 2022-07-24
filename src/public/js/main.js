@@ -1,6 +1,7 @@
 let localCart = JSON.parse(localStorage.getItem('cart'))
 let noUserCart = []
 
+// add an item to the cart
 function addToCart(id) {
     // If user is authenticated
     $.ajax({
@@ -23,6 +24,7 @@ function addToCart(id) {
     localCart = JSON.parse(localStorage.getItem('cart'))
 }
 
+// remove an item from the cart
 function removeFromCart(id) {
     confirm('The item will be removed, are You sure?') ? $.ajax({
         method: "DELETE",
@@ -38,6 +40,7 @@ function removeFromCart(id) {
     window.location.assign('/cartList')
 }
 
+// remove all the items from the cart
 function removeAllItems() {
     confirm('All the items will be removed!! Are You sure?') ? $.ajax({
         method: "DELETE",
@@ -53,6 +56,7 @@ function removeAllItems() {
     window.location.assign('/cartList')
 }
 
+// go to cart if user is not logged in
 function goToCart() {
     let localCart = localStorage.getItem('cart')
     $.ajax({
@@ -64,3 +68,5 @@ function goToCart() {
     })
     window.location.assign('/cartList')
 }
+
+

@@ -1,22 +1,43 @@
-<h1>My Cart</h1>
+<div class="container">
+    <h1 class="text-center my-4">My Cart</h1>
 {{#if shoppingList}}
-    <ul>
+    <ul class="col-md-8 d-grid gap-3 m-auto mb-3">
         {{#each shoppingList}}
-            <li>{{name}} - {{description}} - {{price}} €
-                <button onclick="removeFromCart('{{id}}')">Delete</button>
-            </li>
+            <div class="card text-center">
+                <li class="my-2">{{name}} - {{description}} - {{price}} €
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart('{{id}}')">Delete</button>
+                </li>
+            </div>
+            
         {{/each}}
     </ul>
-    <button onclick="removeAllItems()">Remove all the items</button>
+    <div class="text-center">
+        <button class="btn btn-danger btn-sm" onclick="removeAllItems()">Remove all the items</button>
+    </div>
 {{else if noUser}}
-    <ul>
+    <ul class="col-md-8 d-grid gap-3 m-auto mb-3">
         {{#each noUser}}
-            <li>{{name}} - {{description}} - {{price}} €
-                <button onclick="removeFromCart('{{id}}')">Delete</button>
-            </li>
+            <div class="card text-center">
+                <li class="my-2">{{name}} - {{description}} - {{price}} €
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart('{{id}}')">Delete</button>
+                </li>
+            </div>
         {{/each}}
     </ul>
-    <button onclick="removeAllItems()">Remove all the items</button>
+    <div class="text-center">
+        <button class="btn btn-danger btn-sm" onclick="removeAllItems()">Remove all the items</button>
+    </div>
+    <div class="col-md-8 alert bg-secondary mt-4 mx-auto">
+        <p>
+            If you are not logged in, your cart could be lost after your session. <br>
+            Log in with <a href="/auth/google" class="text-white">Google</a> to save your cart.
+        </p>
+    </div>
 {{else}}
-    <p>Your cart is empty.</p>
+    <div class="col-md-8 text-center m-auto">
+        <p class="alert bg-secondary text-white p-3">
+            Your cart is empty
+        </p>
+    </div>
 {{/if}}
+</div>
