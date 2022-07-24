@@ -10,7 +10,7 @@ slCtrl.displayCart = async(req, res) => {
         const {id} = req.user
         const user = await User.findById(id)
         const shoppingList = await fillCartList(user.shoppingList)
-        res.status(200).render('partials/cart-list', {shoppingList})
+        res.status(200).render('partials/cart-list', {shoppingList, user})
     } else {
         noUser = await fillCartList(noUserCart)
         res.status(200).render('partials/cart-list', {noUser})

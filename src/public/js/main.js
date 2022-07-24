@@ -19,7 +19,7 @@ function addToCart(id) {
                 localStorage.setItem('cart', JSON.stringify(noUserCart))
             }
         }
-        // alert('The item has been added to the cart')
+        alert('The item has been added to the cart')
     });
     localCart = JSON.parse(localStorage.getItem('cart'))
 }
