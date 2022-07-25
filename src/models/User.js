@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require('mongoose');
 
 const UserSchema = new Schema({
     googleId: {type: String, required: true},
@@ -8,6 +8,6 @@ const UserSchema = new Schema({
     shoppingList: {type: [Schema.Types.ObjectId], ref: 'Item'}
 }, {
     timestamps: true
-})
+});
 
-module.exports = model('User', UserSchema)
+module.exports = model('User', UserSchema);

@@ -1,5 +1,5 @@
-let localCart = JSON.parse(localStorage.getItem('cart'))
-let noUserCart = []
+let localCart = JSON.parse(localStorage.getItem('cart'));
+let noUserCart = [];
 
 // add an item to the cart
 function addToCart(id) {
@@ -11,17 +11,17 @@ function addToCart(id) {
         // if user is not logged in, add the item id to the local cart in localstorage
         if (data == "not user") {
             if (localCart) {
-                cartLocal = JSON.parse(localStorage.getItem('cart'))
-                noUserCart.push(id)
-                localStorage.setItem('cart', JSON.stringify(noUserCart))
+                cartLocal = JSON.parse(localStorage.getItem('cart'));
+                noUserCart.push(id);
+                localStorage.setItem('cart', JSON.stringify(noUserCart));
             } else {
-                noUserCart.push(id)
-                localStorage.setItem('cart', JSON.stringify(noUserCart))
+                noUserCart.push(id);
+                localStorage.setItem('cart', JSON.stringify(noUserCart));
             }
         }
-        alert('The item has been added to the cart')
+        alert('The item has been added to the cart');
     });
-    localCart = JSON.parse(localStorage.getItem('cart'))
+    localCart = JSON.parse(localStorage.getItem('cart'));
 }
 
 // remove an item from the cart
@@ -32,12 +32,12 @@ function removeFromCart(id) {
     }).done(data => {
         // remover el item from localstorage if user is not logged in
         if (data.user == 'not user') {
-            localStorage.setItem('cart', JSON.stringify(data.noUserCart))
+            localStorage.setItem('cart', JSON.stringify(data.noUserCart));
         }
-        window.location.assign('/cartList')
-        alert('The item has been removed from the cart')
+        alert('The item has been removed from the cart');
+        window.location.assign('/cartList');
     }) :
-    window.location.assign('/cartList')
+    window.location.assign('/cartList');
 }
 
 // remove all the items from the cart
@@ -48,25 +48,23 @@ function removeAllItems() {
     }).done(data => {
         // assign an empty array to cart in localstorage
         if (data == 'not user') {
-            localStorage.setItem('cart', '[]')
+            localStorage.setItem('cart', '[]');
         }
-        window.location.assign('/cartList')
-        alert('The item has been removed from the cart')
+        alert('The item has been removed from the cart');
+        window.location.assign('/cartList');
     }) :
-    window.location.assign('/cartList')
+    window.location.assign('/cartList');
 }
 
 // go to cart if user is not logged in
 function goToCart() {
-    let localCart = localStorage.getItem('cart')
+    let localCart = localStorage.getItem('cart');
     $.ajax({
         url: "/cartListNoUser",
         method: "POST",
         data: {cart: localCart}
-    }).done(data => {
-        console.log(data)
-    })
-    window.location.assign('/cartList')
+    }).done();
+    window.location.assign('/cartList');
 }
 
 

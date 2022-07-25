@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const {Schema, model} = require('mongoose');
 
 const ItemSchema = new Schema({
     name: {type: String, required: true},
@@ -6,6 +6,6 @@ const ItemSchema = new Schema({
     price: {type: Number, requiered: true},
 },{
     timestamps: true
-})
+});
 
-module.exports = model('Item', ItemSchema)
+module.exports = model('Item', ItemSchema);

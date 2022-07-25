@@ -1,11 +1,11 @@
-require('dotenv').config()
+require('dotenv').config();
 
-const app = require('./app')
+const app = require('./app');
 
-const port = app.get('port')
+const port = app.get('port');
 
 app.listen(port, () => {
-    console.log(`Server running on port ${port}`)
-})
+    console.log(`Server running on port ${port}`);
+});
 
-module.exports = app
+module.exports = app;
