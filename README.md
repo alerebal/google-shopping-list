@@ -29,6 +29,7 @@ If the user is logged in, the navbar shows three links, Home, My Cart and Log ou
 ![Navbar user](src/public/img/readme/navbar-user.png)
 
 If user is not logged in, just two links are show, Home and Log in with Google.
+
 ![Navbar no user](src/public/img/readme/navbar-no-user.png)
 
 ### Footer
