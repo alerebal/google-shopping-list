@@ -1,11 +1,11 @@
 <!-- Cart page view -->
 <div class="container">
     <h1 class="text-center my-4">My Cart</h1>
-{{#if shoppingList}}
+{{#if shoppingListQty}}
     <ul class="col-md-8 d-grid gap-3 m-auto mb-3">
-        {{#each shoppingList}}
+        {{#each shoppingListQty}}
             <div class="card text-center">
-                <li class="my-2">{{name}} - {{description}} - {{price}} €
+                <li class="my-2">{{name}} - Quantity: {{qty}} - Total: {{total}} €
                     <button class="btn btn-danger btn-sm" onclick="removeFromCart('{{id}}')">Delete</button>
                 </li>
             </div>
@@ -15,11 +15,11 @@
     <div class="text-center">
         <button class="btn btn-danger btn-sm" onclick="removeAllItems()">Remove all the items</button>
     </div>
-{{else if noUser}}
+{{else if noUserQty}}
     <ul class="col-md-8 d-grid gap-3 m-auto mb-3">
-        {{#each noUser}}
+        {{#each noUserQty}}
             <div class="card text-center">
-                <li class="my-2">{{name}} - {{description}} - {{price}} €
+                <li class="my-2">{{name}} - Quantity: {{qty}} - Total: {{total}} €
                     <button class="btn btn-danger btn-sm" onclick="removeFromCart('{{id}}')">Delete</button>
                 </li>
             </div>
@@ -29,8 +29,8 @@
         <button class="btn btn-danger btn-sm" onclick="removeAllItems()">Remove all the items</button>
     </div>
     <div class="col-md-8 alert bg-secondary mt-4 mx-auto">
-        <p>
-            If you are not logged in, your cart could be lost after your session. <br>
+        <p class="text-center">
+            If you are not logged in, your cart could be lost. <br>
             Log in with <a href="/auth/google" class="text-white">Google</a> to save your cart.
         </p>
     </div>

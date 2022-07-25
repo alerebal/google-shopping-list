@@ -1,6 +1,6 @@
 const slCtrl = {}
 const User = require('../models/User')
-const {fillCartList, removeItemOnce} = require('../helpers/helpers')
+const {fillCartList, removeItemOnce, getItemsQty} = require('../helpers/helpers')
 let noUserCart = []
 let noUser;
 
@@ -10,11 +10,13 @@ slCtrl.displayCart = async(req, res) => {
         const {id} = req.user
         const user = await User.findById(id)
         const shoppingList = await fillCartList(user.shoppingList)
+        const shoppingListQty = getItemsQty(shoppingList)
         // send user to the template to manage the navbar's links
-        res.status(200).render('partials/cart-list', {shoppingList, user})
+        res.status(200).render('partials/cart-list', {shoppingListQty, user})
     } else {
         noUser = await fillCartList(noUserCart)
-        res.status(200).render('partials/cart-list', {noUser})
+        const noUserQty = getItemsQty(noUser)
+        res.status(200).render('partials/cart-list', {noUserQty})
     }
 }
 

@@ -19,4 +19,31 @@ helpers.removeItemOnce = (arr, index) => {
     return arr;
 }
 
+// Get the quantity and total price of each item
+helpers.getItemsQty = (arrOfObjects) => {
+    let arrWithQty = {}
+    for (let item of arrOfObjects) {
+        if (arrWithQty.hasOwnProperty(item.id)) {
+            arrWithQty[item.id] = {
+                id: item.id,
+                name: item.name,
+                description : item.description,
+                price: item.price,
+                qty: arrWithQty[item.id]['qty'] += 1,
+                total: arrWithQty[item.id]['qty'] * arrWithQty[item.id]['price']
+            }
+        } else {
+            arrWithQty[item.id] = {
+                id: item.id,
+                name: item.name,
+                description : item.description,
+                price: item.price,
+                qty: 1,
+                total: item.price
+            }
+        }
+    }
+    return Object.values(arrWithQty)
+}
+
 module.exports = helpers
