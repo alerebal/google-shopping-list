@@ -16,10 +16,10 @@ describe('Testing items.controllers', () => {
     });
 
     // Same situation that the previous test
-    test('should create an item', () => {
+    test('should create an item', async () => {
         const item = {name: 'item 1', description: 'some description', price: 7};
         const resp = {data: item};
-        axios.get.mockResolvedValue(resp);
+        await axios.get.mockResolvedValue(resp);
 
         return createItem().then(data => expect(data).toEqual(item))
                            .catch(error => expect(error).toEqual(error));
